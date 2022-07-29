@@ -70,7 +70,7 @@ export default function useVideoThumbnails(
           },
           mimeType,
           qualityArgument,
-        )
+        );
       })();
     }
 

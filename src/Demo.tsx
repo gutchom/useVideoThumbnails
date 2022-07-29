@@ -1,11 +1,12 @@
-import useVideoThumbnails from "./index";
+import React from 'react';
+import useVideoThumbnails from './index';
 
 export default function Demo() {
-  const [ref, thumbnails] = useVideoThumbnails(10, 0.2);
+  const [ref, thumbnails] = useVideoThumbnails(10, 0.1);
 
   return (
     <div>
-      <video ref={ref} controls src="/sample.mp4"/>
+      <video ref={ref} controls src="/sample.mp4" />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {thumbnails.map(({ blob, second }) => (
           <figure key={second} style={{ margin: 0 }}>
@@ -15,5 +16,5 @@ export default function Demo() {
         ))}
       </div>
     </div>
-  )
+  );
 }

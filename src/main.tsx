@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Demo from './Demo'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Demo from './Demo';
 
 const root = document.getElementById('root');
 if (root) {
@@ -8,5 +8,5 @@ if (root) {
     <React.StrictMode>
       <Demo />
     </React.StrictMode>
-  )
+  );
 }
