@@ -22,6 +22,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "test": "playwright test -c playwright-ct.config.ts",
+    "format": "eslint --fix src && prettier --write src",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
