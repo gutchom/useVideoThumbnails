@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 type VideoThumbnail = {
   blob: Blob;
-  second: number;
+  time: number;
 };
 
 /**
@@ -16,7 +16,7 @@ type VideoThumbnail = {
  */
 export default function useVideoThumbnails(
   count: number,
-  scale = 1,
+  scale: number,
   type?: `image/${'png' | 'jpeg' | 'webp'}`,
   quality?: number,
 ): [videoRef: RefObject<HTMLVideoElement>, thumbnails: VideoThumbnail[]] {
@@ -58,7 +58,7 @@ export default function useVideoThumbnails(
               }
               throw new Error('canvas.toBlob() failed.');
             }
-            thumbs.push({ blob, second: video.currentTime });
+            thumbs.push({ blob, time: video.currentTime });
             if (thumbs.length < count) {
               video.currentTime -= interval;
             } else {
