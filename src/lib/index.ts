@@ -10,15 +10,15 @@ type VideoThumbnail = {
  * Create thumbnails of HTMLVideoElement.
  * @param count - A number of thumbnails.
  * @param scale - A number of scale.
- * @param mimeType - A string indicating the image format.
- * @param qualityArgument - A number between 0 and 1 indicating the image quality.
+ * @param type - A MIME type string indicating the image format.
+ * @param quality - A number between 0 and 1 indicating the image quality.
  * @see https://developer.mozilla.org/docs/Web/API/HTMLCanvasElement/toBlob
  */
 export default function useVideoThumbnails(
   count: number,
   scale = 1,
-  mimeType: `image/${'png' | 'jpeg' | 'webp'}` = 'image/jpeg',
-  qualityArgument = 0.95,
+  type?: `image/${'png' | 'jpeg' | 'webp'}`,
+  quality?: number,
 ): [videoRef: RefObject<HTMLVideoElement>, thumbnails: VideoThumbnail[]] {
   const ref = useRef<HTMLVideoElement>(null);
   const [thumbnails, setThumbnails] = useState<VideoThumbnail[]>([]);
@@ -51,14 +51,14 @@ export default function useVideoThumbnails(
         throw new Error('canvas context is not found.');
       }
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      (function recurse(limit = 5) {
+      (function recurse(limit: number) {
         canvas.toBlob(
           (blob) => {
             if (!blob) {
               if (limit > 0) {
                 recurse(--limit);
               }
-              throw new Error();
+              throw new Error('canvas.toBlob() failed.');
             }
             thumbs.push({ blob, second: video.currentTime });
             if (thumbs.length < count) {
@@ -68,10 +68,10 @@ export default function useVideoThumbnails(
               setThumbnails(thumbs.reverse());
             }
           },
-          mimeType,
-          qualityArgument,
+          type,
+          quality,
         );
-      })();
+      })(5);
     }
 
     function cleanup() {
@@ -80,7 +80,7 @@ export default function useVideoThumbnails(
     }
 
     return cleanup;
-  }, [ref, count, mimeType, qualityArgument]);
+  }, [ref, count, scale, type, quality]);
 
   return [ref, thumbnails];
 }
