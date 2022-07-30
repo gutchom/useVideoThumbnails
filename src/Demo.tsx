@@ -1,5 +1,5 @@
 import React from 'react';
-import useVideoThumbnails from './index';
+import useVideoThumbnails from './lib';
 
 export default function Demo() {
   const [ref, thumbnails] = useVideoThumbnails(10, 0.1);
