@@ -29,13 +29,11 @@ export default function useVideoThumbnails(
     }
     let interval: number;
     const thumbs: VideoThumbnail[] = [];
-    const video = document.createElement('video');
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
+    const video = ref.current.cloneNode(true) as HTMLVideoElement;
     video.addEventListener('seeked', drawThumbnail);
     video.addEventListener('canplaythrough', handleReady);
-    video.crossOrigin = 'anonymous';
-    video.src = ref.current.src;
     video.load();
 
     function handleReady() {
