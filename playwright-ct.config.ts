@@ -50,6 +50,10 @@ const config: PlaywrightTestConfig = {
       },
     },
   ],
+  webServer: {
+    command: 'npm start',
+    port: 5173
+  }
 };
 
 export default config;
